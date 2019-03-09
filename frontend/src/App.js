@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   uploadCsvContent(content) {
-    axios.post("/import-shops-as-csv", content, {
+    axios.post('/import-shops', content, {
       headers: {'Content-Type': 'text/csv'}
     });
   }
