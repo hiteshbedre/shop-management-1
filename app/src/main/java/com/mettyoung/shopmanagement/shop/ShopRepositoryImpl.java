@@ -1,7 +1,7 @@
 package com.mettyoung.shopmanagement.shop;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -11,13 +11,14 @@ public class ShopRepositoryImpl implements ShopRepository {
     private Set<Shop> shops;
 
     public ShopRepositoryImpl() {
-        shops = new HashSet<>();
+        shops = new LinkedHashSet<>();
     }
 
     @Override
-    public Shop save(Shop shop) {
-        shops.add(shop);
-        return shop;
+    public Set<Shop> saveAll(Set<Shop> shops) {
+        this.shops.clear();
+        this.shops.addAll(shops);
+        return this.shops;
     }
 
     @Override
@@ -28,10 +29,5 @@ public class ShopRepositoryImpl implements ShopRepository {
     @Override
     public Set<Shop> findAll() {
         return shops;
-    }
-
-    @Override
-    public void deleteAll() {
-        shops.clear();
     }
 }

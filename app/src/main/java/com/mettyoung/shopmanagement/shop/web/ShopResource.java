@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
+
 @RestController
 public class ShopResource {
 
@@ -23,11 +25,7 @@ public class ShopResource {
 
     @PostMapping(value = IMPORT_SHOPS, consumes = "text/csv")
     public Set<Shop> importShops(@RequestBody ImportedShopList importedShops) {
-        // Clear all shops on upload CSV.
-        shopRepository.deleteAll();
-        // Save all shops to in-memory repository.
-        importedShops.stream().map(ImportedShop::toModel).forEach(shopRepository::save);
-        // Return all shops from in-memory repository.
-        return shopRepository.findAll();
+        // Replace all shops with the imported shop list.
+        return shopRepository.saveAll(importedShops.stream().map(ImportedShop::toModel).collect(toSet()));
     }
 }
