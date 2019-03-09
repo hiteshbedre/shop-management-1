@@ -6,9 +6,9 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 
 @Data
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode(of = "number")
 public class Shop {
-    private String name;
+    private long number;
     private LocalDate startDate;
     private LocalDate endDate;
 

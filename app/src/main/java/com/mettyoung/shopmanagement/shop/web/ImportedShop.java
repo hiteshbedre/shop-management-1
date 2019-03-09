@@ -12,7 +12,7 @@ import java.util.Date;
 public class ImportedShop {
 
     @CsvBindByName(column = "shop")
-    private String name;
+    private long number;
 
     @CsvBindByName(column = "start_date")
     @CsvDate("yyyy-MM-dd")
@@ -24,7 +24,7 @@ public class ImportedShop {
 
     public Shop toModel() {
         Shop shop = new Shop();
-        shop.setName(name);
+        shop.setNumber(number);
         shop.setStartDate(startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         shop.setEndDate(endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
