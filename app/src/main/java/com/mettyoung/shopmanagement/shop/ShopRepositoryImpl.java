@@ -29,4 +29,9 @@ public class ShopRepositoryImpl implements ShopRepository {
     public Set<Shop> findAll() {
         return shops;
     }
+
+    @Override
+    public void deleteAll() {
+        shops.clear();
+    }
 }

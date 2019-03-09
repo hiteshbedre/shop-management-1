@@ -8,4 +8,5 @@ public interface ShopRepository {
     Shop save(Shop shop);
     Set<Shop> findActiveShops(LocalDate date);
     Set<Shop> findAll();
+    void deleteAll();
 }

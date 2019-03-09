@@ -14,12 +14,20 @@ public class ShopResource {
 
     private static final String IMPORT_SHOPS = "import-shops";
 
-    @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    public void setShopRepository(ShopRepository shopRepository) {
+        this.shopRepository = shopRepository;
+    }
 
     @PostMapping(value = IMPORT_SHOPS, consumes = "text/csv")
     public Set<Shop> importShops(@RequestBody ImportedShopList importedShops) {
+        // Clear all shops on upload CSV.
+        shopRepository.deleteAll();
+        // Save all shops to in-memory repository.
         importedShops.stream().map(ImportedShop::toModel).forEach(shopRepository::save);
+        // Return all shops from in-memory repository.
         return shopRepository.findAll();
     }
 }
