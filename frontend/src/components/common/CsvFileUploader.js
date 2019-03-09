@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const CsvFileUploader = props => {
-  return (
-    <div>
-      <input type="file" accept=".csv" onChange={e => readCsvFile(props, e.target.files[0])} />
-    </div>
-  );
-};
+export default class CsvFileUploader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedFile: {}
+    }
+  }
 
-const readCsvFile = (props, file) => {
-  const fileReader = new FileReader();
-  fileReader.onloadend = e => fileReader.result !== null && props.onRead && props.onRead(fileReader.result);
-  fileReader.readAsText(file);
-};
+  render() {
+    return (
+      <div>
+        <input type="file" accept=".csv" onChange={e => this.setState({selectedFile: e.target.files[0]})}/>
+        <button onClick={this.extractCsvFile.bind(this)}>Upload</button>
+      </div>
+    );
+  }
 
-export default CsvFileUploader;
+  extractCsvFile() {
+    if (this.state.selectedFile != null && this.props.onRead) {
+      const fileReader = new FileReader();
+      fileReader.onloadend = e => fileReader.result !== null && this.props.onRead(fileReader.result);
+      fileReader.readAsText(this.state.selectedFile);
+    }
+  }
+}
