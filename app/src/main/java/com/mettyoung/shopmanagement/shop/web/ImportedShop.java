@@ -15,11 +15,11 @@ public class ImportedShop {
     private long number;
 
     @CsvBindByName(column = "start_date")
-    @CsvDate("yyyy-MM-dd")
+    @CsvDate("yyyyMMdd")
     private Date startDate;
 
     @CsvBindByName(column = "end_date")
-    @CsvDate("yyyy-MM-dd")
+    @CsvDate("yyyyMMdd")
     private Date endDate;
 
     public Shop toModel() {
