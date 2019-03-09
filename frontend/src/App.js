@@ -23,10 +23,19 @@ class App extends Component {
     }).then(response => this.setState({ data: response.data.map(Object.values) }));
   }
 
+  fetchShops(date) {
+    axios.get(`/fetch-shops?date=${date}`)
+      .then(response => this.setState({ data: response.data.map(Object.values) }));
+  }
+
   render() {
     return (
       <div>
+        <h1>Shop Management</h1>
+        <h2>Import Merchant's Shops</h2>
         <CsvFileUploader onRead={this.uploadCsvContent} />
+        <h2>Merchant's Shops</h2>
+        <input type="date" onChange={e => this.fetchShops(e.target.value)}/>
         <SimpleDataTable headers={this.state.headers} data={this.state.data} />
       </div>
     );
