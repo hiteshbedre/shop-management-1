@@ -13,14 +13,31 @@ class App extends Component {
     this.uploadCsvContent = this.uploadCsvContent.bind(this);
     this.state = {
       headers: ['Shop Number', 'Start Date', 'End Date'],
-      data: []
+      data: [],
+      errors: []
     };
   }
 
   uploadCsvContent(content) {
     axios.post('/import-shops', content, {
       headers: {'Content-Type': 'text/csv'}
-    }).then(response => this.setState({ data: response.data.map(Object.values) }));
+    })
+      .then(response => this.setState(
+        {
+          data: response.data.map(Object.values),
+          errors: []
+        }
+      ))
+      .catch(({response: {data: response}}) => {
+        if (response.status === 500) {
+          this.setState({errors: [response.message]});
+        }
+        else if (response.status === 400) {
+          const errors = Array.from(new Set(response.errors.map(t => t.defaultMessage)));
+          this.setState({errors});
+        }
+      });
+
   }
 
   fetchShops(date) {
@@ -33,12 +50,25 @@ class App extends Component {
       <div>
         <h1>Shop Management</h1>
         <h2>Import Merchant's Shops</h2>
-        <CsvFileUploader onRead={this.uploadCsvContent} />
+        <CsvFileUploader onRead={this.uploadCsvContent}/>
+        {this.renderErrors()}
         <h2>Merchant's Shops</h2>
         <input type="date" onChange={e => this.fetchShops(e.target.value)}/>
-        <SimpleDataTable headers={this.state.headers} data={this.state.data} />
+        <SimpleDataTable headers={this.state.headers} data={this.state.data}/>
       </div>
     );
+  }
+
+  renderErrors() {
+    if (this.state.errors) {
+      return (
+        <div className="error">
+          <h3>Violations</h3>
+          {this.state.errors.map(error => <p>{error}</p>)}
+        </div>
+      );
+    }
+    return null;
   }
 }
 
