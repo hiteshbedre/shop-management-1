@@ -1,33 +1,88 @@
-.App {
+.app {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #faf2e4;
+  margin: 0 10%;
+  font-family: sans-serif
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1 {
+  text-align: center;
+  font-family: serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-bottom: 1px solid #57b1dc;
+  margin-top: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+h2 {
+  color: #d1633c;
+  font-size: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+thead {
+  color: #d1633c;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  margin: 0 30%;
+}
+
+.error h2 {
+  font-weight: bold;
+}
+
+.error li::first-letter {
+  text-transform: uppercase;
+}
+
+.error li::after {
+  content: '.'
+}
+
+.error ol {
+  text-align: left;
+}
+
+div.data {
+  text-align: center;
+}
+
+div.data * {
+  margin-top: 10px;
+}
+
+div.data label {
+  color: #d1633c;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+div.data label::after {
+  content: ':'
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+table td:first-child {
+  border-left: none;
+}
+
+table td:last-child {
+  border-right: none;
 }

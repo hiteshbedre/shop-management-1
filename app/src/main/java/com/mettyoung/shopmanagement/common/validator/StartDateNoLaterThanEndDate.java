@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {StartDateNoLaterThanEndDateValidator.class})
 @Documented
 public @interface StartDateNoLaterThanEndDate {
-    String message() default "start date must not be later than end date.";
+    String message() default "start date must not be later than end date";
 
     Class<?>[] groups() default {};
 

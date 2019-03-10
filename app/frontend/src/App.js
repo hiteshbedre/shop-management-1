@@ -5,15 +5,13 @@ import './App.css';
 
 const axios = require('axios');
 
-class App extends Component {
+export default class App extends Component {
 
   constructor(props) {
     super(props);
-
-    this.uploadCsvContent = this.uploadCsvContent.bind(this);
     this.state = {
       headers: ['Shop Number', 'Start Date', 'End Date'],
-      data: [],
+      data: null,
       errors: []
     };
   }
@@ -47,10 +45,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <h1>Shop Management</h1>
         <h2>Import Merchant's Shops</h2>
-        <CsvFileUploader onRead={this.uploadCsvContent}/>
+        <CsvFileUploader onRead={this.uploadCsvContent.bind(this)}/>
         {this.renderContent()}
       </div>
     );
@@ -60,21 +58,22 @@ class App extends Component {
     if (this.state.errors.length > 0) {
       return (
         <div className="error">
-          <h3>Violations</h3>
-          {this.state.errors.map(error => <p>{error}</p>)}
+          <h2>Invalid data! Please obey the following data guidelines:</h2>
+          <ol>
+            {this.state.errors.map(error => <li>{error}</li>)}
+          </ol>
         </div>
       );
     }
-    else if (this.state.data.length > 0) {
+    else if (this.state.data !== null) {
       return (
-        <div>
+        <div className="data">
           <h2>Merchant's Shops</h2>
-          <input type="date" onChange={e => this.fetchShops(e.target.value)}/>
+          <label for="date">Find Active Shops</label>
+          <input id="date" type="date" onChange={e => this.fetchShops(e.target.value)}/>
           <SimpleDataTable headers={this.state.headers} data={this.state.data}/>
         </div>
       );
     }
   }
 }
-
-export default App;
