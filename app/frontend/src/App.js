@@ -51,16 +51,13 @@ class App extends Component {
         <h1>Shop Management</h1>
         <h2>Import Merchant's Shops</h2>
         <CsvFileUploader onRead={this.uploadCsvContent}/>
-        {this.renderErrors()}
-        <h2>Merchant's Shops</h2>
-        <input type="date" onChange={e => this.fetchShops(e.target.value)}/>
-        <SimpleDataTable headers={this.state.headers} data={this.state.data}/>
+        {this.renderContent()}
       </div>
     );
   }
 
-  renderErrors() {
-    if (this.state.errors) {
+  renderContent() {
+    if (this.state.errors.length > 0) {
       return (
         <div className="error">
           <h3>Violations</h3>
@@ -68,7 +65,15 @@ class App extends Component {
         </div>
       );
     }
-    return null;
+    else if (this.state.data.length > 0) {
+      return (
+        <div>
+          <h2>Merchant's Shops</h2>
+          <input type="date" onChange={e => this.fetchShops(e.target.value)}/>
+          <SimpleDataTable headers={this.state.headers} data={this.state.data}/>
+        </div>
+      );
+    }
   }
 }
 
