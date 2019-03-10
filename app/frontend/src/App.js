@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CsvFileUploader from './components/common/CsvFileUploader';
-import SimpleDataTable from './components/common/SimpleDataTable';
+import CsvFileUploader from './common/components/CsvFileUploader';
+import SimpleDataTable from './common/components/SimpleDataTable';
 import './App.css';
 
 const axios = require('axios');
