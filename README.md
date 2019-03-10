@@ -4,6 +4,8 @@ Shop Management
 
 Just a very simple Spring Boot Web App to showcase my skills.
 
+*Please use Google Chrome. It seems Safari does not support &lt;input type="date"&gt;.*
+
 ### Purpose
 
 One of the facilities of an e-commerce application is to manage merchants. Some merchant's shops are only open
@@ -47,7 +49,6 @@ increasing complexity of the business domain.
 3. Maven
 4. Docker
 5. Ansible
-
 
 ### Copyright
 Copyright © 2019, Emmett Young, All rights reserved.
