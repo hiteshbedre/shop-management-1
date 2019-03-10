@@ -58,7 +58,7 @@ export default class App extends Component {
     if (this.state.errors.length > 0) {
       return (
         <div className="error">
-          <h2>Invalid data! Please obey the following data guidelines:</h2>
+          <p>Invalid data! Please obey the following data guidelines:</p>
           <ol>
             {this.state.errors.map(error => <li>{error}</li>)}
           </ol>
@@ -68,7 +68,6 @@ export default class App extends Component {
     else if (this.state.data !== null) {
       return (
         <div className="data">
-          <h2>Merchant's Shops</h2>
           <label for="date">Find Active Shops</label>
           <input id="date" type="date" onChange={e => this.fetchShops(e.target.value)}/>
           <SimpleDataTable headers={this.state.headers} data={this.state.data}/>

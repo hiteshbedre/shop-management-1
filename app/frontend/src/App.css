@@ -9,47 +9,18 @@ body {
 }
 
 h1 {
-  text-align: center;
   font-family: serif;
   font-weight: normal;
   text-transform: uppercase;
   border-bottom: 1px solid #57b1dc;
   margin-top: 30px;
+  margin-bottom: 0;
 }
 
 h2 {
   color: #d1633c;
   font-size: 30px;
-}
-
-thead {
-  color: #d1633c;
-  font-size: 14px;
-}
-
-.error {
-  color: red;
-  margin: 0 30%;
-}
-
-.error h2 {
-  font-weight: bold;
-}
-
-.error li::first-letter {
-  text-transform: uppercase;
-}
-
-.error li::after {
-  content: '.'
-}
-
-.error ol {
-  text-align: left;
-}
-
-div.data {
-  text-align: center;
+  margin-top: 10px;
 }
 
 div.data * {
@@ -59,8 +30,8 @@ div.data * {
 div.data label {
   color: #d1633c;
   font-weight: bold;
-  margin-right: 10px;
-  font-size: 1em;
+  margin-right: 5px;
+  font-size: 14px;
 }
 
 div.data label::after {
@@ -70,6 +41,11 @@ div.data label::after {
 table {
   border-collapse: collapse;
   margin: 0 auto;
+}
+
+table thead {
+  color: #d1633c;
+  font-size: 14px;
 }
 
 table td {
@@ -85,4 +61,22 @@ table td:first-child {
 
 table td:last-child {
   border-right: none;
+}
+
+.error {
+  color: red;
+  text-align: left;
+  display: inline-block;
+}
+
+.error p {
+  font-weight: bold;
+}
+
+.error li::first-letter {
+  text-transform: uppercase;
+}
+
+.error li::after {
+  content: '.'
 }
