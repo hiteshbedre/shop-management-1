@@ -1,0 +1,2 @@
+mysql_image: mysql:5.7.18
+mysql_container_name: shop-db

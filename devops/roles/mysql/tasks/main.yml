@@ -1,0 +1,21 @@
+- name: Create MySQL container
+  docker_container:
+    name: "{{ mysql_container_name }}"
+    image: "{{ mysql_image }}"
+    network_mode: host
+    restart_policy: unless-stopped
+    recreate: yes
+    env:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'shop_management'
+      MYSQL_USER: 'shop_management'
+      MYSQL_PASSWORD: 'shop_management'
+
+- name: Open MySQL Port
+  firewalld:
+    zone: public
+    port: 3306/tcp
+    permanent: true
+    state: enabled
+  notify:
+    - Bounce firewalld

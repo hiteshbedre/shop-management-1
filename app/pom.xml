@@ -51,6 +51,11 @@
 			<version>5.1.46</version>
 		</dependency>
 		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -119,27 +124,61 @@
                     </execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project.build.directory}/classes/static">
-                                    <fileset dir="${project.basedir}/frontend/build"></fileset>
-                                </copy>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/classes/static">
+									<fileset dir="${project.basedir}/frontend/build"></fileset>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<outputChangeLogFile>target/schema.xml</outputChangeLogFile>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost:3306/shop_management</url>
+					<username>shop_management</username>
+					<password>shop_management</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
+		<profile>
+			<id>production</id>
+			<activation>
+				<property>
+					<name>prod</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<configuration>
+							<changeLogFile>${project.basedir}/src/main/liquibase/changelog.xml</changeLogFile>
+							<driver>com.mysql.jdbc.Driver</driver>
+							<url>jdbc:mysql://li118-165.members.linode.com:3306/shop_management</url>
+							<username>shop_management</username>
+							<password>shop_management</password>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>docker</id>
 			<activation>

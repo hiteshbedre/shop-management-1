@@ -18,3 +18,14 @@ Execute the following commands in @/devops.
 
     # Production
     ansible-playbook -i environments/production webapp.yml -e "webapp_image=shop-management:1.0.0"
+
+## Database Deployment
+
+    # Production
+    ansible-playbook -i environments/production mysql.yml
+
+## Database Schema Update
+Execute the following commands in @/app.
+
+    # Production
+    ./mvnw liquibase:update -Dprod
