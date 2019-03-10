@@ -17,7 +17,7 @@ import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 
 @RestController
-public class ShopResource {
+class ShopResource {
 
     private static final String IMPORT_SHOPS = "import-shops";
     private static final String FETCH_SHOPS = "fetch-shops";
@@ -25,18 +25,18 @@ public class ShopResource {
     private ShopRepository shopRepository;
 
     @Autowired
-    public void setShopRepository(ShopRepository shopRepository) {
+    void setShopRepository(ShopRepository shopRepository) {
         this.shopRepository = shopRepository;
     }
 
     @PostMapping(value = IMPORT_SHOPS, consumes = "text/csv")
-    public Set<Shop> importShops(@RequestBody @Valid ImportedShops importedShops) {
+    Set<Shop> importShops(@RequestBody @Valid ImportedShops importedShops) {
         // Replace all shops with the imported shop list.
         return shopRepository.saveAll(importedShops.getShops().stream().map(ImportedShop::toModel).collect(toSet()));
     }
 
     @GetMapping(value = FETCH_SHOPS)
-    public Set<Shop> fetchShops(@RequestParam(value = "date", required = false)
+    Set<Shop> fetchShops(@RequestParam(value = "date", required = false)
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return date != null ? shopRepository.findActiveShops(date) : shopRepository.findAll();
     }
