@@ -1,0 +1,41 @@
+- name: Enable EPEL Repo
+  yum:
+    name: epel-release
+    update_cache: true
+    state: present
+
+- name: Install Python
+  yum:
+    name:
+      - libselinux-python
+      - python-pip
+    update_cache: yes
+    state: latest
+
+- name: Add Docker GPG Key
+  rpm_key:
+    key: https://download.docker.com/linux/centos/gpg
+    state: present
+
+- name: Add Docker repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: '/etc/yum.repos.d/docker-ce.repo'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: present
+
+- name: Ensure docker is started and enabled at boot
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Install docker-py
+  pip:
+    name: docker-py

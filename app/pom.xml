@@ -155,7 +155,7 @@
 									<goal>save</goal>
 								</goals>
 								<configuration>
-									<saveFile>${project.build.directory}/app.tar</saveFile>
+									<saveFile>${project.basedir}/../devops/roles/webapp/files/app.tar</saveFile>
 								</configuration>
 							</execution>
 						</executions>

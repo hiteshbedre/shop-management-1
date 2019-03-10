@@ -1,5 +1,8 @@
 HELP.md
 app/target/
+.DS_Store
+*.retry
+app.tar
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
