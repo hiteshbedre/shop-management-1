@@ -1,5 +1,6 @@
 package com.mettyoung.shopmanagement.common.converter;
 
+import com.mettyoung.shopmanagement.common.model.ListContainer;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -13,9 +14,8 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
-public class CsvHttpMessageConverter<E, L extends List<E>> extends AbstractHttpMessageConverter<L> {
+public class CsvHttpMessageConverter<E, L extends ListContainer<E>> extends AbstractHttpMessageConverter<L> {
 
     public CsvHttpMessageConverter() {
         super(new MediaType("text", "csv"));
@@ -23,7 +23,7 @@ public class CsvHttpMessageConverter<E, L extends List<E>> extends AbstractHttpM
 
     @Override
     protected boolean supports(Class<?> aClass) {
-        return List.class.isAssignableFrom(aClass);
+        return ListContainer.class.isAssignableFrom(aClass);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,10 +38,9 @@ public class CsvHttpMessageConverter<E, L extends List<E>> extends AbstractHttpM
                 .build();
         try {
             L instance = aClass.newInstance();
-            instance.addAll(csvToBean.parse());
+            instance.setItems(csvToBean.parse());
             return instance;
-        }
-        catch (IllegalAccessException|InstantiationException e) {
+        } catch (IllegalAccessException | InstantiationException e) {
             throw new RuntimeException(e);
         }
     }
@@ -58,7 +57,7 @@ public class CsvHttpMessageConverter<E, L extends List<E>> extends AbstractHttpM
     }
 
     @SuppressWarnings("unchecked")
-    private Class<E> getParameterizedClass(Class<? extends List<E>> aClass) {
-        return (Class<E>) ((ParameterizedType) aClass.getGenericSuperclass()).getActualTypeArguments()[0];
+    private Class<E> getParameterizedClass(Class<? extends L> aClass) {
+        return (Class<E>) ((ParameterizedType) aClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];
     }
 }
