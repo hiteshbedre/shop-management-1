@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Set;
@@ -29,15 +30,15 @@ class ShopResource {
         this.shopRepository = shopRepository;
     }
 
+    @Transactional
     @PostMapping(value = IMPORT_SHOPS, consumes = "text/csv")
     Set<Shop> importShops(@RequestBody @Valid ImportedShops importedShops) {
-        // Replace all shops with the imported shop list.
-        return shopRepository.saveAll(importedShops.getShops().stream().map(ImportedShop::toModel).collect(toSet()));
+        return shopRepository.replaceAll(importedShops.getShops().stream().map(ImportedShop::toModel).collect(toSet()));
     }
 
     @GetMapping(value = FETCH_SHOPS)
     Set<Shop> fetchShops(@RequestParam(value = "date", required = false)
-                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return date != null ? shopRepository.findActiveShops(date) : shopRepository.findAll();
     }
 }
