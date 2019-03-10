@@ -149,10 +149,14 @@
 						<executions>
 							<execution>
 								<id>build</id>
-								<phase>verify</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>build</goal>
+									<goal>save</goal>
 								</goals>
+								<configuration>
+									<saveFile>${project.build.directory}/app.tar</saveFile>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
