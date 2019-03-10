@@ -4,17 +4,18 @@ Shop Management
 
 Just a very simple Spring Boot Web App to showcase my skills.
 
-### What can it do?
+### Purpose
 
 One of the facilities of an e-commerce application is to manage merchants. Some merchant's shops are only open
-for a certain period of days. This humble web app wishes to address one of its problems which is to
-provide a facility to update shop active dates in bulk by importing a CSV file. Additionally, a search facility
-is provided to search for opened shops for a given day.
+for a certain period of days. This humble web app wishes to provide a facility to update shop active dates in bulk by 
+importing a CSV file. Additionally, a search facility is provided to search for opened shops for a given day.
+
+#### Example of CSV
+    shop,start_date,end_date
+    1,20200401,20200402
+    2,20200402,20200403
 
 ### Technological Considerations
-
-Let's go geek in here!
-
 #### Architecture 
 
 It is worthwhile to discuss the architecture behind the trivial application. The architecture is designed after the
@@ -31,6 +32,9 @@ increasing complexity of the business domain.
 3. AssertJ
 4. Spring Boot
 5. REST
+6. Bean Validation 2.0 (JSR-380)
+7. JPA
+8. Hibernate
 
 #### Front-end Technologies
 1. HTML5
@@ -39,10 +43,10 @@ increasing complexity of the business domain.
 
 #### Dev-ops Technologies
 1. Git
-2. Maven
-3. Docker
-4. Ansible
-
+2. Liquibase
+3. Maven
+4. Docker
+5. Ansible
 
 
 ### Copyright
